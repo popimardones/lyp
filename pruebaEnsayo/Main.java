@@ -6,20 +6,36 @@ import pruebas.pruebaEnsayo.tragos.*;
 
 public class Main {
   
-  public static void main(String[] args) {
-    // 1. creamos el scanner que leera los datos del usuario
-    Scanner scanner = new Scanner(System.in);
+  private static Scanner scanner;
+
+public static void main(String[] args) {
+	  
+	Integer opcion = null;
+	Tragos seleccionado = null;
+	
+    scanner = new Scanner(System.in);
     // 2. interactuamos con el usuario
     System.out.println("Ingrese la cantidad de calorías que puede consumir: ");
     Double calorias = scanner.nextDouble();
+    
+   
     // 3. Preguntamos que tipo de alcohol le gusta más
     System.out.println("¿Qué trago prefieres tomar?");
     for (Tragos trago: Tragos.values()) {
       System.out.println(trago.ordinal() + " - " + trago.name().replace("_", " "));
     }
+    
+    while(true) {
+    try {
     // 4. obtenemos la opcion del usuario
-    Integer opcion = scanner.nextInt();
-    Tragos seleccionado = Tragos.values()[opcion];
+    opcion = scanner.nextInt();
+    seleccionado = Tragos.values()[opcion];
+    break;
+    }catch(ArrayIndexOutOfBoundsException exception){
+    	System.out.println("No ingresaste un numero de 1 a 7, intenta de nuevo: ");
+    }
+    }
+
     // 5. creamos una instancia de trago
     Trago trago = new AguaTonica();
     switch(seleccionado) {
@@ -49,7 +65,10 @@ public class Main {
     }
     // 6. calculamos la cantidad de trago que puede consumir
     Double cantidad = trago.calculaCantidad(calorias);
-    System.out.println("Puedes consumir " + cantidad.intValue() + " ml de " + seleccionado.name().replace("_", " "));
-  }
+    System.out.println("Puedes consumir " + cantidad.intValue() + " ml de " + seleccionado.name().replace("_", " ")); 
+
   
+
+  
+}
 }
